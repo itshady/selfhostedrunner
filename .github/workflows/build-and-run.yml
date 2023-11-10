@@ -10,6 +10,7 @@ on:
 
 env:
   WORKSPACE: ${{ github.workspace }}
+  TIMEOUT: 60
 
 jobs:
   build:
@@ -50,11 +51,10 @@ jobs:
         run: |
           $uri = "http://localhost:8080"
           $body = $env:GITHUB_ACTOR
-          $response = Invoke-WebRequest -Uri $uri -Method POST -Body $body -UseBasicParsing
+          $response = Invoke-WebRequest -Uri $uri -Method POST -Body $body -UseBasicParsing -TimeoutSec $env:TIMEOUT
           $status_code = $response.StatusCode
           echo "info: $status_code"
-          echo "status_code=2" >> $GITHUB_OUTPUT
-          
+          echo "status_code=2" >> "$GITHUB_OUTPUT"
       
       - name: Get information on port
         id: pong
