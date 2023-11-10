@@ -17,6 +17,9 @@ jobs:
     # defaults:
     #   run:
     #     working-directory: ${{ github.workspace }}
+    defaults:
+      run:
+        shell: pwsh
 
     steps:
       - name: Checkout Repository
@@ -45,7 +48,7 @@ jobs:
       # npx wait-on tcp:3000 --timeout 60s -v
       - name: Ping port 8080
         run: |
-          echo "env:STATUS_CODE = (Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body '$env:GITHUB_ACTOR' -UseBasicParsing).StatusCode" >> $GITHUB_ENV
+          echo "STATUS_CODE = (Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body '$env:GITHUB_ACTOR' -UseBasicParsing).StatusCode" >> $env:GITHUB_ENV
 
       - name: Get information on port
         run: |
