@@ -15,7 +15,9 @@ jobs:
 
       - name: Build
         working-directory: ../selfhostedrunner/
-        run: go build
+        run: |
+          pwd
+          go build
 
       - name: Run Executable
         working-directory: ../selfhostedrunner/
