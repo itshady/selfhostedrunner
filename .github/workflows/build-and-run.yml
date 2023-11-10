@@ -27,10 +27,12 @@ jobs:
       - name: Build
         run: |
           pwd
+          cd ${{ github.workspace }}
           go build
 
       - name: Run Executable
         run: |
+          cd ${{ github.workspace }}
           ./selfhostedrunner.exe
 
       # - name: Cleanup
