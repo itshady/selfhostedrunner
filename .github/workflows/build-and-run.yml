@@ -23,27 +23,14 @@ jobs:
           echo 'test'
           echo ${{ github.workspace }}
 
-      # - name: Build
-      #   run: |
-      #     cd ../formula/selfhostedrunner
-      #     pwd
-      #     go build
-
-      
-
-      # - name: Print Directory Contents
-      #   run: ls -R  # This will list the contents of the current working directory (repository root)
-
       - name: Build
         run: |
           pwd
+          echo ${{ github.workspace }}
           go build
 
       - name: Run Executable
         run: ./selfhostedrunner.exe
-        # run: |
-        #   cd ../formula/selfhostedrunner
-        #   ./selfhostedrunner.exe
 
       # - name: Cleanup
       #   if: always()
