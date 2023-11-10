@@ -24,8 +24,8 @@ jobs:
 
       
 
-      - name: Print Directory Contents
-        run: ls -R  # This will list the contents of the current working directory (repository root)
+      # - name: Print Directory Contents
+      #   run: ls -R  # This will list the contents of the current working directory (repository root)
 
       - name: Build
         run: go build
@@ -36,9 +36,9 @@ jobs:
         #   cd ../formula/selfhostedrunner
         #   ./selfhostedrunner.exe
 
-      - name: Cleanup
-        if: always()
-        uses: actions/upload-artifact@v1
-        with:
-          name: test-results
-          path: app/build
+      # - name: Cleanup
+      #   if: always()
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: test-results
+      #     path: app/build
