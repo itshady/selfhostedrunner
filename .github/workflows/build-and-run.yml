@@ -16,8 +16,8 @@ jobs:
       - name: Build
         working-directory: C:\Users\hadyi\Documents\coding\formula\selfhostedrunner
         run: |
-          pwd
-          go build
+          cd C:\Users\hadyi\Documents\coding\formula\selfhostedrunner && pwd
+          cd C:\Users\hadyi\Documents\coding\formula\selfhostedrunner && go build
 
       - name: Run Executable
         working-directory: C:\Users\hadyi\Documents\coding\formula\selfhostedrunner
