@@ -38,17 +38,9 @@ jobs:
           cd $env:WORKSPACE
           npm install wait-on
 
-      - name: Wait on
-        # uses: ./
-        # with:
-        #   working-directory: $env:WORKSPACE
-        #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
-        #   wait-on: 'http://localhost:8081'
-        #   wait-on-timeout: 60
-        run: npm wait-on http://localhost:8085 --timeout 60s -v
-
       - name: Ping port 8080
         run: |
+          npx wait-on tcp:8085
           Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR"
 
       - name: Get information on port
@@ -92,7 +84,7 @@ jobs:
         #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
         #   wait-on: 'http://localhost:8081'
         #   wait-on-timeout: 60
-        run: npm wait-on http://localhost:8085 --timeout 60s -v
+        run: npx wait-on http://localhost:8085 --timeout 60s -v
       
       - name: Get information on port
         run: |
