@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Echo workspace
         run: |
+          echo 'test'
           echo ${{ github.workspace }}
           echo $GITHUB_WORKSPACE
 
