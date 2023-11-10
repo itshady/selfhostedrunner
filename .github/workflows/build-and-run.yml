@@ -64,3 +64,9 @@ jobs:
           wait-on: 'http://localhost:8081'
           wait-on-timeout: 60
       
+      - name: Get information on port
+        run: |
+          info=$(curl -s http://localhost:8081/health)
+          echo "Information Returned from Test: $info"
+        # echo "Health Information" >> $GITHUB_ENV
+        # echo "$health_info" >> $GITHUB_ENV
