@@ -66,7 +66,7 @@ jobs:
         #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
         #   wait-on: 'http://localhost:8081'
         #   wait-on-timeout: 60
-        run: ./node_modules/.bin/wait-on http://localhost:8081 --timeout 120000 -v
+        run: ./node_modules/.bin/wait-on http://localhost:8085 --timeout 120000 -v
       
       - name: Get information on port
         run: |
