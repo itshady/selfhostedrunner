@@ -40,12 +40,12 @@ jobs:
 
       - name: Ping port 8080
         run: |
-          npx wait-on tcp:8085
+          npx wait-on tcp:3000 --timeout 60s -v
           Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR"
 
       - name: Get information on port
         run: |
-          info=$(curl -s http://localhost:8085/health)
+          info=$(curl -s http://localhost:3000/health)
           echo "Information Returned from Test: $info"
         # echo "Health Information" >> $GITHUB_ENV
         # echo "$health_info" >> $GITHUB_ENV
@@ -84,11 +84,11 @@ jobs:
         #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
         #   wait-on: 'http://localhost:8081'
         #   wait-on-timeout: 60
-        run: npx wait-on http://localhost:8085 --timeout 60s -v
+        run: npx wait-on http://localhost:3000 --timeout 60s -v
       
       - name: Get information on port
         run: |
-          info=$(curl -s http://localhost:8085/health)
+          info=$(curl -s http://localhost:3000/health)
           echo "Information Returned from Test: $info"
         # echo "Health Information" >> $GITHUB_ENV
         # echo "$health_info" >> $GITHUB_ENV
