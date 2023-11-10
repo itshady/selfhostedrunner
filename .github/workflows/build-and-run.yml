@@ -16,13 +16,29 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      # - name: Build
+      #   run: |
+      #     cd ../formula/selfhostedrunner
+      #     pwd
+      #     go build
+
+      
+
+      - name: Print Directory Contents
+        run: ls -R  # This will list the contents of the current working directory (repository root)
+
       - name: Build
-        run: |
-          cd ../formula/selfhostedrunner
-          pwd
-          go build
+        run: go build
 
       - name: Run Executable
-        run: |
-          cd ../formula/selfhostedrunner
-          ./selfhostedrunner.exe
+        run: ./selfhostedrunner.exe
+        # run: |
+        #   cd ../formula/selfhostedrunner
+        #   ./selfhostedrunner.exe
+
+      - name: Cleanup
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-results
+          path: app/build
