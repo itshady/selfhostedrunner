@@ -46,10 +46,10 @@ jobs:
       - name: Ping port 8080
         run: |
           $info = (Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR" -UseBasicParsing).StatusCode
-          echo "$info"
+          echo "info: $info"
           echo "status_code=$info" >> $GITHUB_OUTPUT
           echo "::set-output name=status_code::$info"
-          echo "${{ steps.vars.outputs.status_code }}"
+          echo "vars: ${{ steps.vars.outputs.status_code }}"
           
       
       - name: Get information on port
