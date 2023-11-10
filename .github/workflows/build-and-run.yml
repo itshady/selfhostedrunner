@@ -12,7 +12,7 @@ env:
   WORKSPACE: ${{ github.workspace }}
 
 jobs:
-  build-and-run:
+  build:
     runs-on: self-hosted
     # defaults:
     #   run:
@@ -60,8 +60,8 @@ jobs:
       - name: Get information on port
         id: pong
         run: |
-          echo "${{ steps.ping.outputs.status_code }}"
-          echo "Information Returned from Test: ${{ steps.vars.outputs.status_code }}"
+          echo "var: ${{ steps.ping.outputs.status_code }}"
+          echo "Information Returned from Test: ${{ needs.build.outputs.status_code }}"
 
       - name: Set outputs
         id: vars
