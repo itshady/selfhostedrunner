@@ -50,3 +50,17 @@ jobs:
       #   with:
       #     name: test-results
       #     path: app/build
+
+  wait-on-reply:
+    runs-on: self-hosted
+    needs: build-and-run
+
+    steps:
+      - name: Wait on 
+        uses: ./
+        with:
+          working-directory: $env:WORKSPACE
+          # start: npm run start-after-100-seconds
+          wait-on: 'http://localhost:8081'
+          wait-on-timeout: 60
+      
