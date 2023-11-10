@@ -54,7 +54,7 @@ jobs:
           $status_code = $response.StatusCode
           echo "info: $status_code"
           echo "status_code=2" >> $GITHUB_OUTPUT
-          echo "::set-output name=status_code::$status_code"
+          
       
       - name: Get information on port
         id: pong
