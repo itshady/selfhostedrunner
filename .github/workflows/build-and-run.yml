@@ -45,7 +45,8 @@ jobs:
       # npx wait-on tcp:3000 --timeout 60s -v
       - name: Ping port 8080
         run: |
-          $info=(Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR" -UseBasicParsing).StatusCode
+          $info = (Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR" -UseBasicParsing).StatusCode
+          echo "$info"
           echo "status_code=$info" >> $GITHUB_OUTPUT
           echo "::set-output name=status_code::$info"
           echo "${{ steps.vars.outputs.status_code }}"
@@ -58,7 +59,7 @@ jobs:
 
       - name: Set outputs
         id: vars
-        run: echo "::set-output name=produc_tion::true"
+        run: echo "::set-output name=produc_tion::2"
 
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.produc_tion }}
