@@ -53,19 +53,20 @@ jobs:
 
   wait-on-reply:
     runs-on: self-hosted
-    # needs: build-and-run
+    needs: build-and-run
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Wait on 
-        uses: ./
-        with:
-          working-directory: $env:WORKSPACE
-          # start: npm run start-after-100-seconds
-          wait-on: 'http://localhost:8081'
-          wait-on-timeout: 60
+      - name: Wait on
+        # uses: ./
+        # with:
+        #   working-directory: $env:WORKSPACE
+        #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
+        #   wait-on: 'http://localhost:8081'
+        #   wait-on-timeout: 60
+        run: ./node_modules/.bin/wait-on http://localhost:8081 --timeout 120000 -v
       
       - name: Get information on port
         run: |
