@@ -17,6 +17,8 @@ jobs:
     # defaults:
     #   run:
     #     working-directory: ${{ github.workspace }}
+    outputs:
+      status_code: ${{ steps.ping.outputs.status_code }}
 
     steps:
       - name: Checkout Repository
@@ -44,20 +46,21 @@ jobs:
 
       # npx wait-on tcp:3000 --timeout 60s -v
       - name: Ping port 8080
+        id: ping
         run: |
           $uri = "http://localhost:8080"
           $body = $env:GITHUB_ACTOR
           $response = Invoke-WebRequest -Uri $uri -Method POST -Body $body -UseBasicParsing
           $status_code = $response.StatusCode
           echo "info: $status_code"
-          echo "status_code=$status_code" >> $GITHUB_OUTPUT
-          echo "::set-output name=status_code::$status_code"
-          echo "vars: ${{ steps.vars.outputs.status_code }}"
+          echo "status_code=$status_code" >> "$GITHUB_OUTPUT"
+          echo "vars: ${{ steps.ping.outputs.status_code }}"
           
       
       - name: Get information on port
+        id: pong
         run: |
-          echo "${{ steps.vars.outputs.status_code }}"
+          echo "${{ steps.ping.outputs.status_code }}"
           echo "Information Returned from Test: ${{ steps.vars.outputs.status_code }}"
 
       - name: Set outputs
