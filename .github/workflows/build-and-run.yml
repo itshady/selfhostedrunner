@@ -37,6 +37,14 @@ jobs:
         run: |
           Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR"
 
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=production::true"
+
+      - name: Check outputs
+        shell: pwsh
+        run: echo ${{ steps.vars.outputs.production }}
+
       # - name: Cleanup
       #   if: success() || failure()
       #   uses: actions/upload-artifact@v1
