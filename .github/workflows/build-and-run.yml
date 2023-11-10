@@ -32,10 +32,31 @@ jobs:
         run: |
           cd $env:WORKSPACE
           ./selfhostedrunner.exe
+      
+      - name: Install dependency
+        run: |
+          cd $env:WORKSPACE
+          npm install wait-on
+
+      - name: Wait on
+        # uses: ./
+        # with:
+        #   working-directory: $env:WORKSPACE
+        #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
+        #   wait-on: 'http://localhost:8081'
+        #   wait-on-timeout: 60
+        run: npm wait-on http://localhost:8085 --timeout 60s -v
 
       - name: Ping port 8080
         run: |
           Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR"
+
+      - name: Get information on port
+        run: |
+          info=$(curl -s http://localhost:8085/health)
+          echo "Information Returned from Test: $info"
+        # echo "Health Information" >> $GITHUB_ENV
+        # echo "$health_info" >> $GITHUB_ENV
 
       - name: Set outputs
         id: vars
