@@ -22,9 +22,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
 
       - name: Build
         run: |
@@ -37,22 +37,19 @@ jobs:
           cd $env:WORKSPACE
           ./selfhostedrunner.exe
       
-      - name: Install dependency
-        run: |
-          cd $env:WORKSPACE
-          npm install wait-on
+      # - name: Install dependency
+      #   run: |
+      #     cd $env:WORKSPACE
+      #     npm install wait-on
 
+      # npx wait-on tcp:3000 --timeout 60s -v
       - name: Ping port 8080
         run: |
-          npx wait-on tcp:3000 --timeout 60s -v
-          Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR"
+          $statusCode = (Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR" -UseBasicParsing).StatusCode
 
       - name: Get information on port
         run: |
-          info=$(curl -s http://localhost:3000/health)
-          echo "Information Returned from Test: $info"
-        # echo "Health Information" >> $GITHUB_ENV
-        # echo "$health_info" >> $GITHUB_ENV
+          echo "Information Returned from Test: $statusCode"
 
       - name: Set outputs
         id: vars
@@ -67,32 +64,3 @@ jobs:
       #   with:
       #     name: test-results
       #     path: app/build
-
-  wait-on-reply:
-    runs-on: self-hosted
-    # needs: build-and-run
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Install dependency
-        run: |
-          cd $env:WORKSPACE
-          npm install wait-on
-
-      - name: Wait on
-        # uses: ./
-        # with:
-        #   working-directory: $env:WORKSPACE
-        #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
-        #   wait-on: 'http://localhost:8081'
-        #   wait-on-timeout: 60
-        run: npx wait-on 127.0.0.1:3000 --timeout 60s -v
-      
-      - name: Get information on port
-        run: |
-          info=$(curl -s http://localhost:3000/health)
-          echo "Information Returned from Test: $info"
-        # echo "Health Information" >> $GITHUB_ENV
-        # echo "$health_info" >> $GITHUB_ENV
