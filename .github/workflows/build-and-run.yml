@@ -18,8 +18,11 @@ jobs:
 
       - name: Build
         run: |
+          cd ../formula/selfhostedrunner
           pwd
           go build
 
       - name: Run Executable
-        run: ./selfhostedrunner.exe
+        run: |
+          cd ../formula/selfhostedrunner
+          ./selfhostedrunner.exe
