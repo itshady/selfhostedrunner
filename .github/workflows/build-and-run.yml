@@ -53,9 +53,12 @@ jobs:
 
   wait-on-reply:
     runs-on: self-hosted
-    needs: build-and-run
+    # needs: build-and-run
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Wait on 
         uses: ./
         with:
