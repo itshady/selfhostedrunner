@@ -59,6 +59,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Install dependency
+        run: |
+          cd $env:WORKSPACE
+          npm install wait-on
+
       - name: Wait on
         # uses: ./
         # with:
@@ -66,11 +71,11 @@ jobs:
         #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
         #   wait-on: 'http://localhost:8081'
         #   wait-on-timeout: 60
-        run: ./node_modules/.bin/wait-on http://localhost:8085 --timeout 120000 -v
+        run: npm wait-on http://localhost:8085 --timeout 60s -v
       
       - name: Get information on port
         run: |
-          info=$(curl -s http://localhost:8081/health)
+          info=$(curl -s http://localhost:8085/health)
           echo "Information Returned from Test: $info"
         # echo "Health Information" >> $GITHUB_ENV
         # echo "$health_info" >> $GITHUB_ENV
