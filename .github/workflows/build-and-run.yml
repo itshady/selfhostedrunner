@@ -53,15 +53,14 @@ jobs:
           $response = Invoke-WebRequest -Uri $uri -Method POST -Body $body -UseBasicParsing
           $status_code = $response.StatusCode
           echo "info: $status_code"
-          echo "status_code=$status_code" >> $GITHUB_OUTPUT
-          echo "vars: ${{ steps.ping.outputs.status_code }}"
-          
+          echo "status_code=2" >> $GITHUB_OUTPUT
+          echo "::set-output name=status_code::$status_code"
       
       - name: Get information on port
         id: pong
         run: |
           echo "var: ${{ steps.ping.outputs.status_code }}"
-          echo "Information Returned from Test: ${{ needs.build.outputs.status_code }}"
+          echo "Information Returned from Test: ${{ steps.ping.outputs.status_code }}"
 
       - name: Set outputs
         id: vars
