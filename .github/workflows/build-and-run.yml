@@ -8,32 +8,34 @@ on:
     branches:
       - '*'
 
+env:
+  WORKSPACE: ${{ github.workspace }}
+
 jobs:
   build-and-run:
     runs-on: self-hosted
-    defaults:
-      run:
-        working-directory: ${{ github.workspace }}
+    # defaults:
+    #   run:
+    #     working-directory: ${{ github.workspace }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      
-      - name: Echo workspace
-        run: |
-          echo 'test'
-          echo ${{ github.workspace }}
 
       - name: Build
         run: |
           pwd
-          cd ${{ github.workspace }}
+          cd $env:WORKSPACE
           go build
 
       - name: Run Executable
         run: |
-          cd ${{ github.workspace }}
+          cd $env:WORKSPACE
           ./selfhostedrunner.exe
+
+      - name: Ping port 8080
+        run: |
+          Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR"
 
       # - name: Cleanup
       #   if: success() || failure()
