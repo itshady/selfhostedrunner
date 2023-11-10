@@ -45,13 +45,14 @@ jobs:
       # npx wait-on tcp:3000 --timeout 60s -v
       - name: Ping port 8080
         run: |
-          $env:info=(Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR" -UseBasicParsing).StatusCode
-          echo "status_code=$info" >> $env:GITHUB_OUTPUT
-          echo "::set-output name=status_code::$env:info"
+          $info=(Invoke-WebRequest -Uri http://localhost:8080 -Method POST -Body "$env:GITHUB_ACTOR" -UseBasicParsing).StatusCode
+          echo "status_code=$info" >> $GITHUB_OUTPUT
+          echo "::set-output name=status_code::$info"
+          
       
       - name: Get information on port
         run: |
-          echo ${{ steps.vars.outputs.status_code }}
+          echo "${{ steps.vars.outputs.status_code }}"
           echo "Information Returned from Test: ${{ steps.vars.outputs.status_code }}"
 
       - name: Set outputs
