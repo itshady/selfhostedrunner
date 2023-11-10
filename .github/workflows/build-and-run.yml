@@ -14,11 +14,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build
-        working-directory: ../selfhostedrunner/
+        working-directory: C:\Users\hadyi\Documents\coding\formula\selfhostedrunner
         run: |
           pwd
           go build
 
       - name: Run Executable
-        working-directory: ../selfhostedrunner/
+        working-directory: C:\Users\hadyi\Documents\coding\formula\selfhostedrunner
         run: ./selfhostedrunner.exe
