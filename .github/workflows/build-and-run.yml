@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Build
         run: |
@@ -84,7 +88,7 @@ jobs:
         #   start: npm run start:test & ./node_modules/.bin/wait-on http://localhost:3000 --timeout 120000 -v
         #   wait-on: 'http://localhost:8081'
         #   wait-on-timeout: 60
-        run: npx wait-on http://localhost:3000 --timeout 60s -v
+        run: npx wait-on 127.0.0.1:3000 --timeout 60s -v
       
       - name: Get information on port
         run: |
